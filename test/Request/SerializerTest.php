@@ -207,7 +207,7 @@ class SerializerTest extends TestCase
     {
         $message = $line . "\r\nX-Foo-Bar: Baz\r\n\r\nContent";
 
-        $this->expectException(UnexpectedValueException::class);
+        $this->setExpectedException(UnexpectedValueException::class);
 
         Serializer::fromString($message);
     }
@@ -270,28 +270,27 @@ class SerializerTest extends TestCase
      */
     public function testDeserializationRaisesExceptionForMalformedHeaders($message, $exceptionMessage)
     {
-        $this->expectException(UnexpectedValueException::class);
-        $this->expectExceptionMessage($exceptionMessage);
+        $this->setExpectedException(UnexpectedValueException::class, $exceptionMessage);
 
         Serializer::fromString($message);
     }
 
     public function testFromStreamThrowsExceptionWhenStreamIsNotReadable()
     {
-        $stream = $this->createMock(StreamInterface::class);
+        $stream = $this->getMock(StreamInterface::class);
         $stream
             ->expects($this->once())
             ->method('isReadable')
             ->will($this->returnValue(false));
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->setExpectedException(InvalidArgumentException::class);
 
         Serializer::fromStream($stream);
     }
 
     public function testFromStreamThrowsExceptionWhenStreamIsNotSeekable()
     {
-        $stream = $this->createMock(StreamInterface::class);
+        $stream = $this->getMock(StreamInterface::class);
         $stream
             ->expects($this->once())
             ->method('isReadable')
@@ -301,7 +300,7 @@ class SerializerTest extends TestCase
             ->method('isSeekable')
             ->will($this->returnValue(false));
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->setExpectedException(InvalidArgumentException::class);
 
         Serializer::fromStream($stream);
     }
@@ -311,7 +310,7 @@ class SerializerTest extends TestCase
         $headers = "POST /foo HTTP/1.0\r\nContent-Type: text/plain\r\nX-Foo-Bar: Baz;\r\n Bat\r\n\r\n";
         $payload = $headers . "Content!";
 
-        $stream = $this->createMock(StreamInterface::class);
+        $stream = $this->getMock(StreamInterface::class);
         $stream
             ->expects($this->once())
             ->method('isReadable')
@@ -340,7 +339,7 @@ class SerializerTest extends TestCase
         $request = (new Request())
             ->withUri(new Uri('http://example.com/foo/bar?baz=bat'));
 
-        $this->expectException(UnexpectedValueException::class);
+        $this->setExpectedException(UnexpectedValueException::class);
 
         Serializer::toString($request);
     }

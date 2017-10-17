@@ -92,7 +92,7 @@ class CallbackStreamTest extends TestCase
         $stream = new CallbackStream(function () {
         });
 
-        $this->expectException(RuntimeException::class);
+        $this->setExpectedException(RuntimeException::class);
 
         $stream->tell();
     }
@@ -126,7 +126,7 @@ class CallbackStreamTest extends TestCase
         $stream = new CallbackStream(function () {
         });
 
-        $this->expectException(RuntimeException::class);
+        $this->setExpectedException(RuntimeException::class);
 
         $stream->seek(0);
     }
@@ -136,7 +136,7 @@ class CallbackStreamTest extends TestCase
         $stream = new CallbackStream(function () {
         });
 
-        $this->expectException(RuntimeException::class);
+        $this->setExpectedException(RuntimeException::class);
 
         $stream->rewind();
     }
@@ -146,7 +146,7 @@ class CallbackStreamTest extends TestCase
         $stream = new CallbackStream(function () {
         });
 
-        $this->expectException(RuntimeException::class);
+        $this->setExpectedException(RuntimeException::class);
 
         $stream->write('foobarbaz');
     }
@@ -156,7 +156,7 @@ class CallbackStreamTest extends TestCase
         $stream = new CallbackStream(function () {
         });
 
-        $this->expectException(RuntimeException::class);
+        $this->setExpectedException(RuntimeException::class);
 
         $stream->read(3);
     }

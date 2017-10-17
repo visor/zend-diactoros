@@ -40,7 +40,7 @@ class ArraySerializerTest extends TestCase
         $serializedRequest = $this->createSerializedResponse();
         unset($serializedRequest['body']);
 
-        $this->expectException(UnexpectedValueException::class);
+        $this->setExpectedException(UnexpectedValueException::class);
 
         ArraySerializer::fromArray($serializedRequest);
     }

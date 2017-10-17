@@ -73,7 +73,7 @@ class UriTest extends TestCase
     {
         $uri = new Uri('https://user:pass@local.example.com:3001/foo?bar=baz#quz');
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->setExpectedException(InvalidArgumentException::class);
 
         $uri->withUserInfo('matthew', 1);
     }
@@ -183,8 +183,7 @@ class UriTest extends TestCase
     {
         $uri = new Uri('https://user:pass@local.example.com:3001/foo?bar=baz#quz');
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid port');
+        $this->setExpectedException(InvalidArgumentException::class, 'Invalid port');
 
         $uri->withPort($port);
     }
@@ -227,8 +226,7 @@ class UriTest extends TestCase
     {
         $uri = new Uri('https://user:pass@local.example.com:3001/foo?bar=baz#quz');
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid path');
+        $this->setExpectedException(InvalidArgumentException::class, 'Invalid path');
 
         $uri->withPath($path);
     }
@@ -261,8 +259,7 @@ class UriTest extends TestCase
     {
         $uri = new Uri('https://user:pass@local.example.com:3001/foo?bar=baz#quz');
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Query string');
+        $this->setExpectedException(InvalidArgumentException::class, 'Query string');
 
         $uri->withQuery($query);
     }
@@ -354,14 +351,14 @@ class UriTest extends TestCase
      */
     public function testConstructorRaisesExceptionForNonStringURI($uri)
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->setExpectedException(InvalidArgumentException::class);
 
         new Uri($uri);
     }
 
     public function testConstructorRaisesExceptionForSeriouslyMalformedURI()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->setExpectedException(InvalidArgumentException::class);
 
         new Uri('http:///www.php-fig.org/');
     }
@@ -396,8 +393,7 @@ class UriTest extends TestCase
      */
     public function testConstructWithUnsupportedSchemeRaisesAnException($scheme)
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Unsupported scheme');
+        $this->setExpectedException(InvalidArgumentException::class, 'Unsupported scheme');
 
         new Uri($scheme . '://example.com');
     }
@@ -409,8 +405,7 @@ class UriTest extends TestCase
     {
         $uri = new Uri('http://example.com');
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Unsupported scheme');
+        $this->setExpectedException(InvalidArgumentException::class, 'Unsupported scheme');
 
         $uri->withScheme($scheme);
     }
@@ -607,7 +602,7 @@ class UriTest extends TestCase
     {
         $uri = new Uri('https://example.com/');
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->setExpectedException(InvalidArgumentException::class);
 
         $uri->$method($value);
     }

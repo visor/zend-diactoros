@@ -76,7 +76,7 @@ class StreamTest extends TestCase
 
     public function testPassingInvalidStreamResourceToConstructorRaisesException()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->setExpectedException(InvalidArgumentException::class);
 
         $stream = new Stream(['  THIS WILL NOT WORK  ']);
     }
@@ -152,8 +152,7 @@ class StreamTest extends TestCase
         fseek($resource, 2);
         $stream->detach();
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('No resource');
+        $this->setExpectedException(RuntimeException::class, 'No resource');
 
         $stream->tell();
     }
@@ -242,8 +241,7 @@ class StreamTest extends TestCase
         $stream = new Stream($resource);
         $stream->detach();
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('No resource');
+        $this->setExpectedException(RuntimeException::class, 'No resource');
 
         $stream->seek(2);
     }
@@ -371,8 +369,7 @@ class StreamTest extends TestCase
         $stream = new Stream($resource);
         $stream->detach();
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('No resource');
+        $this->setExpectedException(RuntimeException::class, 'No resource');
 
         $stream->write('bar');
     }
@@ -381,8 +378,7 @@ class StreamTest extends TestCase
     {
         $stream = new Stream('php://memory', 'r');
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Stream is not writable');
+        $this->setExpectedException(RuntimeException::class, 'Stream is not writable');
 
         $stream->write('bar');
     }
@@ -406,8 +402,7 @@ class StreamTest extends TestCase
         $stream = new Stream($resource);
         $stream->detach();
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('No resource');
+        $this->setExpectedException(RuntimeException::class, 'No resource');
 
         $stream->read(4096);
     }
@@ -431,7 +426,7 @@ class StreamTest extends TestCase
         $resource = fopen($this->tmpnam, 'w');
         $stream = new Stream($resource);
 
-        $this->expectException(RuntimeException::class);
+        $this->setExpectedException(RuntimeException::class);
 
         $stream->getContents();
     }
@@ -456,8 +451,7 @@ class StreamTest extends TestCase
      */
     public function testAttachWithNonStringNonResourceRaisesException($resource)
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid stream');
+        $this->setExpectedException(\InvalidArgumentException::class, 'Invalid stream');
 
         $this->stream->attach($resource);
     }
@@ -571,8 +565,7 @@ class StreamTest extends TestCase
             $this->markTestSkipped('No acceptable resource available to test ' . __METHOD__);
         }
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('stream');
+        $this->setExpectedException(InvalidArgumentException::class, 'stream');
 
         new Stream($resource);
     }
@@ -589,8 +582,7 @@ class StreamTest extends TestCase
 
         $stream = new Stream(__FILE__);
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('stream');
+        $this->setExpectedException(InvalidArgumentException::class, 'stream');
 
         $stream->attach($resource);
     }

@@ -222,7 +222,7 @@ class ServerRequestTest extends TestCase
     {
         $request = new ServerRequest();
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->setExpectedException(InvalidArgumentException::class);
 
         $request->withUploadedFiles([null]);
     }

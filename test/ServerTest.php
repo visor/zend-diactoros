@@ -43,8 +43,8 @@ class ServerTest extends TestCase
         $this->callback   = function ($req, $res, $done) {
             //  Intentionally empty
         };
-        $this->request = $this->createMock(ServerRequestInterface::class);
-        $this->response = $this->createMock(ResponseInterface::class);
+        $this->request = $this->getMock(ServerRequestInterface::class);
+        $this->response = $this->getMock(ResponseInterface::class);
     }
 
     public function tearDown()
@@ -88,7 +88,7 @@ class ServerTest extends TestCase
         );
         $prop = uniqid();
 
-        $this->expectException(OutOfBoundsException::class);
+        $this->setExpectedException(OutOfBoundsException::class);
 
         $server->$prop;
     }
@@ -100,7 +100,7 @@ class ServerTest extends TestCase
             $this->request,
             $this->response
         );
-        $emmiter = $this->createMock(EmitterInterface::class);
+        $emmiter = $this->getMock(EmitterInterface::class);
         $emmiter->expects($this->once())->method('emit');
 
         $server->setEmitter($emmiter);
